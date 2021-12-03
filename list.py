@@ -58,4 +58,4 @@ def on_info(server: PluginServerInterface, info: Info):
             server.tell(info.player,"X "+str(Json[newlist[i]+'X'])+" Y "+str(Json[newlist[i]+'Y'])+" Z "+str(Json[newlist[i]+'Z']))
 
 def on_load(server, old):
-    server.register_help_message('!!cam', '切換自由視角')
+    server.register_help_message('!!list', '顯示所有玩家位置')
