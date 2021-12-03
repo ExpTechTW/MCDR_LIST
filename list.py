@@ -55,7 +55,7 @@ def on_info(server: PluginServerInterface, info: Info):
         f.close()
         for i in range(times):
             server.tell(info.player,newlist[i])
-            server.tell(info.player,"X "+str(Json[newlist[i]+'X'])+" Y "+str(Json[newlist[i]+'Y'])+" Z "+str(Json[newlist[i]+'Z']))
+            server.tell(info.player,"X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2)))
 
 def on_load(server, old):
     server.register_help_message('!!list', '顯示所有玩家位置')
