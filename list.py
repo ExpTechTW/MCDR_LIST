@@ -60,7 +60,7 @@ def on_info(server: PluginServerInterface, info: Info):
         f.write(json.dumps(Json))
         f.close()
         for i in range(times):
-            server.tell(info.player,"§1"+newlist[i])
+            server.tell(info.player,"§7"+newlist[i])
             if Json[newlist[i]+'D']=='minecraft:overworld':
                 server.tell(info.player,"§2X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2))+" 主世界")
             elif Json[newlist[i]+'D']=='minecraft:the_end':
