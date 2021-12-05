@@ -48,14 +48,25 @@ def on_info(server: PluginServerInterface, info: Info):
                 Json[LIST[i]+'X'] = position.x
                 Json[LIST[i]+'Y'] = position.y
                 Json[LIST[i]+'Z'] = position.z
+                if server.rcon_query('data get entity {} Dimension'.format(LIST[i].replace(',',''))).find('minecraft:the_nether') != -1:
+                    Json[LIST[i]+'D'] = 'minecraft:the_nether'
+                elif server.rcon_query('data get entity {} Dimension'.format(LIST[i].replace(',',''))).find('minecraft:the_end') != -1:
+                    Json[LIST[i]+'D'] = 'minecraft:the_end'
+                elif server.rcon_query('data get entity {} Dimension'.format(LIST[i].replace(',',''))).find('minecraft:overworld') != -1:
+                    Json[LIST[i]+'D'] = 'minecraft:overworld'
                 times=times+1
                 newlist.append(LIST[i])
         f = open('C:/Users/whes1/Desktop/server/plugins/list.json', 'w')
         f.write(json.dumps(Json))
         f.close()
         for i in range(times):
-            server.tell(info.player,newlist[i])
-            server.tell(info.player,"X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2)))
+            server.tell(info.player,"§1"+newlist[i])
+            if Json[newlist[i]+'D']=='minecraft:overworld':
+                server.tell(info.player,"§2X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2))+" 主世界")
+            elif Json[newlist[i]+'D']=='minecraft:the_end':
+                server.tell(info.player,"§5X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2))+" 終末之界")
+            elif Json[newlist[i]+'D']=='minecraft:the_nether':
+                server.tell(info.player,"§4X "+str(round(Json[newlist[i]+'X'],2))+" Y "+str(round(Json[newlist[i]+'Y'],2))+" Z "+str(round(Json[newlist[i]+'Z'],2))+" 地獄")
 
 def on_load(server, old):
     server.register_help_message('!!list', '顯示所有玩家位置')
